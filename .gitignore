@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+tasks.db
+tasks_backup.db
+tasks_export.csv
+.env
