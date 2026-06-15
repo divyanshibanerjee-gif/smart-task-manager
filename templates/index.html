@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>To-Do App</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <h1>🚀 My To-Do List</h1>
+
+    <!-- Dashboard -->
+
+    <div id="stats">
+
+        <p>
+            Total Tasks:
+            <span id="totalTasks">0</span>
+        </p>
+
+        <p>
+            Completed:
+            <span id="completedTasks">0</span>
+        </p>
+
+        <p>
+            Remaining:
+            <span id="remainingTasks">0</span>
+        </p>
+
+    </div>
+
+    <!-- Progress Bar -->
+
+    <div id="progressContainer">
+
+        <div id="progressBar"></div>
+
+    </div>
+
+    <p id="progressText">
+        0% Completed
+    </p>
+
+    <!-- Celebration Message -->
+
+    <div id="celebrationMessage"></div>
+
+    <br>
+
+    <!-- Search -->
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search tasks..."
+        onkeyup="searchTasks()"
+    >
+
+    <br><br>
+
+    <!-- Sort -->
+
+    <select
+        id="sortSelect"
+        onchange="loadTasks()"
+    >
+
+        <option value="newest">
+            Newest
+        </option>
+
+        <option value="priority">
+            Priority
+        </option>
+
+        <option value="duedate">
+            Due Date
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <!-- Task Input -->
+
+    <input
+        type="text"
+        id="taskInput"
+        placeholder="Enter task"
+    >
+
+    <!-- Priority -->
+
+    <select id="priorityInput">
+
+        <option value="High">
+            High
+        </option>
+
+        <option value="Medium" selected>
+            Medium
+        </option>
+
+        <option value="Low">
+            Low
+        </option>
+
+    </select>
+
+    <!-- Category -->
+
+    <select id="categoryInput">
+
+        <option value="Study">
+            Study
+        </option>
+
+        <option value="Work">
+            Work
+        </option>
+
+        <option value="Personal" selected>
+            Personal
+        </option>
+
+        <option value="Health">
+            Health
+        </option>
+
+    </select>
+
+    <!-- Due Date -->
+
+    <input
+        type="date"
+        id="dueDateInput"
+    >
+
+    <!-- Add Task -->
+
+    <button onclick="addTask()">
+        Add Task
+    </button>
+
+    <br><br>
+
+    <!-- Filters -->
+
+    <div id="filters">
+
+        <button onclick="showAll()">
+            All
+        </button>
+
+        <button onclick="showPending()">
+            Pending
+        </button>
+
+        <button onclick="showCompleted()">
+            Completed
+        </button>
+
+        <button onclick="showHighPriority()">
+            High Priority
+        </button>
+
+        <button onclick="showOverdue()">
+            Overdue
+        </button>
+
+    </div>
+
+    <br>
+
+    <button onclick="exportCSV()">
+    📁 Export CSV
+</button>
+
+    <!-- Task List -->
+
+    <ul id="taskList"></ul>
+
+    <!-- JS -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
