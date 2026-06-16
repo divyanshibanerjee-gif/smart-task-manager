@@ -11,6 +11,11 @@ from flask import (
 import sqlite3
 import csv
 
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
+
 app = Flask(__name__)
 
 app.secret_key = "my_secret_key"
@@ -26,7 +31,9 @@ def register():
     if request.method == "POST":
 
         email = request.form["email"]
-        password = request.form["password"]
+     password = generate_password_hash(
+    request.form["password"]
+)
 
         conn = sqlite3.connect("tasks.db")
         cursor = conn.cursor()
@@ -76,19 +83,21 @@ def login():
 
         cursor.execute(
             """
-            SELECT id
+            SELECT id, password
             FROM users
             WHERE email = ?
-            AND password = ?
             """,
-            (email, password)
+            (email,)
         )
 
         user = cursor.fetchone()
 
         conn.close()
 
-        if user:
+        if user and check_password_hash(
+            user[1],
+            password
+        ):
 
             session["user_id"] = user[0]
 
@@ -99,7 +108,6 @@ def login():
     return render_template(
         "login.html"
     )
-
 
 # ======================
 # LOGOUT
@@ -380,3 +388,4 @@ def export_csv():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
