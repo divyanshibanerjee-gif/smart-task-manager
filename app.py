@@ -31,9 +31,10 @@ def register():
     if request.method == "POST":
 
         email = request.form["email"]
-     password = generate_password_hash(
-    request.form["password"]
-)
+
+        password = generate_password_hash(
+            request.form["password"]
+        )
 
         conn = sqlite3.connect("tasks.db")
         cursor = conn.cursor()
@@ -61,11 +62,7 @@ def register():
 
             conn.close()
 
-    return render_template(
-        "register.html"
-    )
-
-
+    return render_template("register.html")
 # ======================
 # LOGIN
 # ======================
